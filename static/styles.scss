@@ -196,58 +196,30 @@ body {
 .hero-right { display: none !important; }
 
 // ---------------- How it works ----------------
-how-it-works {
+.how-it-works .step {
   text-align: center;
-  padding: 3rem 1rem;
+  padding: 0;            // remove fundo/moldura da própria div
+  background: none;      // garante que não tem cor de card
+  box-shadow: none;      // remove qualquer sombra da div
+}
 
-  h2 {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    color: $primary;
-  }
+.how-it-works .step img {
+  width: 200px !important;  // força a largura
+  height: 110px; 
+  max-width: none !important;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  display: block;
+  margin: 0 auto 1rem auto;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+}
 
-  .steps {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .step {
-    background: var(--card, #111218);
-    padding: 1.5rem;
-    border-radius: 1.2rem;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-    &:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-    }
-
-    img {
-      width: 100%;
-      max-width: 140px;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-      margin: 0 auto 1rem auto;
-      border-radius: 50%; /* deixa redondo */
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      display: block;
-    }
-
-    h3 {
-      font-size: 1.3rem;
-      margin-bottom: 0.5rem;
-      color: var(--ink, #eaeaea);
-    }
-
-    p {
-      font-size: 0.95rem;
-      color: var(--muted, #b9c0cb);
-    }
-  }
+.how-it-works .step img:hover {
+  transform: translateY(-5px) rotate(-1deg) scale(1.05); // hover dinâmico
+  box-shadow: 0 12px 25px rgba(0,0,0,0.2);              // sombra maior no hover
+  filter: brightness(1.1);                               // leve brilho
 }
 
 .steps {

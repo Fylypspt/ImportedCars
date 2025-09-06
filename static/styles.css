@@ -174,52 +174,31 @@ body {
   display: none !important;
 }
 
-how-it-works {
+.how-it-works .step {
   text-align: center;
-  padding: 3rem 1rem;
+  padding: 0;
+  background: none;
+  box-shadow: none;
 }
-how-it-works h2 {
-  font-size: 2rem;
-  margin-bottom: 2rem;
-  color: #0b5fff;
-}
-how-it-works .steps {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-how-it-works .step {
-  background: var(--card, #111218);
-  padding: 1.5rem;
-  border-radius: 1.2rem;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-how-it-works .step:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-}
-how-it-works .step img {
-  width: 100%;
-  max-width: 140px;
-  aspect-ratio: 1/1;
+
+.how-it-works .step img {
+  width: 200px !important;
+  height: 110px;
+  max-width: none !important;
   -o-object-fit: cover;
      object-fit: cover;
-  margin: 0 auto 1rem auto;
-  border-radius: 50%; /* deixa redondo */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 0.5rem;
   display: block;
+  margin: 0 auto 1rem auto;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
 }
-how-it-works .step h3 {
-  font-size: 1.3rem;
-  margin-bottom: 0.5rem;
-  color: var(--ink, #eaeaea);
-}
-how-it-works .step p {
-  font-size: 0.95rem;
-  color: var(--muted, #b9c0cb);
+
+.how-it-works .step img:hover {
+  transform: translateY(-5px) rotate(-1deg) scale(1.05);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+  filter: brightness(1.1);
 }
 
 .steps {
