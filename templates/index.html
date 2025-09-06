@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
+
+<!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-copy">
@@ -10,25 +12,82 @@
   </div>
 </section>
 
+<!-- âncora compatível com nav '#ajuda' -->
+<a id="ajuda"></a>
+
+<!-- COMO FUNCIONA -->
 <section class="how-it-works" id="Ajuda">
-    <h2>Como funciona</h2>
-    <div class="steps">
-        <div class="step">
-            <img src="/static/images/step1.png" alt="Compra & Transporte">
-            <h3>Compra & Transporte</h3>
-            <p>Compra no estrangeiro, transporte organizado por nós.</p>
-        </div>
-        <div class="step">
-            <img src="/static/images/step2.png" alt="Impostos">
-            <h3>Impostos</h3>
-            <p>Pagamento de ISV/IVA e declaração nas autoridades competentes.</p>
-        </div>
-        <div class="step">
-            <img src="/static/images/step3.png" alt="Inspeção & Matrícula">
-            <h3>Inspeção & Matrícula</h3>
-            <p>Inspeção técnica, submissão do COC e pedido de matrícula portuguesa com acompanhamento completo.</p>
-        </div>
+  <h2>Como funciona</h2>
+  <div class="steps">
+    <div class="step">
+      <img src="/static/images/step1.png" alt="Compra & Transporte">
+      <h3>Compra & Transporte</h3>
+      <p>Compra no estrangeiro, transporte organizado por nós.</p>
     </div>
+    <div class="step">
+      <img src="/static/images/step2.png" alt="Impostos">
+      <h3>Impostos</h3>
+      <p>Pagamento de ISV/IVA e declaração nas autoridades competentes.</p>
+    </div>
+    <div class="step">
+      <img src="/static/images/step3.png" alt="Inspeção & Matrícula">
+      <h3>Inspeção & Matrícula</h3>
+      <p>Inspeção técnica, submissão do COC e pedido de matrícula portuguesa com acompanhamento completo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTEMUNHOS -->
+<section class="testemunhos">
+  <h2>O que dizem os nossos clientes</h2>
+
+  <div class="testemunho">
+    <div class="texto">
+      <p>"Processo transparente e muito rápido. Em 1 semana já tinha o carro matriculado em PT."</p>
+      <span>- João Maior, Faro</span>
+    </div>
+    <img src="/static/images/audiEx.png" alt="Carro importado em Lisboa">
+  </div>
+
+  <div class="testemunho">
+    <div class="texto">
+      <p>"Apoio total com documentos e impostos. Poupámos tempo e dinheiro."</p>
+      <span>- António José, VRSA</span>
+    </div>
+    <img src="/static/images/bmwEx.png" alt="Carro importado no Porto">
+  </div>
+</section>
+
+<!-- LINHA DO TEMPO -->
+<section class="timeline">
+  <h2>Passos do processo</h2>
+  <div class="steps">
+    <div class="step">1️⃣ Análise & documentação</div>
+    <div class="step">2️⃣ Compra & transporte</div>
+    <div class="step">3️⃣ Alfândega, ISV/IVA</div>
+    <div class="step">4️⃣ Inspeção & COC</div>
+    <div class="step">5️⃣ Matrícula & entrega</div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <h2>Perguntas Frequentes</h2>
+
+  <details>
+    <summary>Quanto tempo demora o processo?</summary>
+    <p>Tipicamente 3–5 semanas após a compra, dependendo do transporte, agenda de inspeções e prazos legais.</p>
+  </details>
+
+  <details>
+    <summary>Preciso estar presente fisicamente?</summary>
+    <p>Não. Tratamos tudo remotamente com procuração simples e envio digital dos documentos.</p>
+  </details>
+
+  <details>
+    <summary>E se o carro não tiver COC?</summary>
+    <p>Podemos solicitar um COC ao fabricante ou usar homologação individual/declaração equivalente. O custo e prazo variam por marca/modelo.</p>
+  </details>
 </section>
 
 {% endblock %}

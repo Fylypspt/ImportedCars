@@ -138,5 +138,9 @@ def orcamento():
     # GET request
     return render_template('quote.html', year=datetime.now().year)
 
+@app.route('/calcular')
+def calcular():
+    return render_template('calcular.html', year=datetime.now().year)
+
 if __name__ == '__main__':
     app.run(debug=True)

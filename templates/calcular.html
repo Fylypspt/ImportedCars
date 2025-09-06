@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Calcular ISV - ImportCar{% endblock %}
+
+{% block content %}
+<section class="calculadora">
+  <h2>Calcular ISV</h2>
+  <form id="form-calculo">
+    <label>Ano do carro:</label>
+    <input type="number" id="ano" placeholder="Ex: 2018" required>
+
+    <label>Cilindrada (cm³):</label>
+    <input type="number" id="cc" placeholder="Ex: 1600" required>
+
+    <label>Combustível:</label>
+    <select id="combustivel">
+      <option value="gasolina">Gasolina</option>
+      <option value="diesel">Diesel</option>
+      <option value="eletrico">Elétrico</option>
+    </select>
+
+    <button type="submit" class="btn">Calcular</button>
+  </form>
+
+  <div id="resultado" class="resultado"></div>
+</section>
+
+<script>
+document.getElementById('form-calculo').addEventListener('submit', function(e){
+  e.preventDefault();
+  
+  const ano = parseInt(document.getElementById('ano').value);
+  const cc = parseInt(document.getElementById('cc').value);
+  const combustivel = document.getElementById('combustivel').value;
+
+  const anoAtual = new Date().getFullYear();
+  const idade = anoAtual - ano;
+
+  let base = 0;
+
+  if (combustivel === "eletrico") {
+    base = 0;
+  } else {
+    if (cc <= 1250) base = 200;
+    else if (cc <= 1750) base = 600;
+    else if (cc <= 2000) base = 1000;
+    else if (cc <= 2500) base = 2000;
+    else base = 3500;
+
+    if (combustivel === "diesel") {
+      base += 500;
+    }
+
+    if (idade >= 1 && idade < 2) base *= 0.8;     // -20%
+    else if (idade >= 2 && idade < 5) base *= 0.6; // -40%
+    else if (idade >= 5 && idade < 10) base *= 0.4; // -60%
+    else if (idade >= 10) base *= 0.1;            // -90%
+  }
+
+  const resultado = document.getElementById('resultado');
+  resultado.innerHTML = `
+    <h3>Estimativa: ~${base.toFixed(0)} €</h3>
+    <p>⚠️ Valor aproximado — cálculo simplificado. O valor real depende das tabelas oficiais do ISV (cilindrada + CO₂).</p>
+  `;
+});
+</script>
+{% endblock %}
