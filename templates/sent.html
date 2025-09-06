@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="sent">
+    <h2>Pedido enviado</h2>
+    <p>A mensagem abaixo foi criada e enviada para nós. Entraremos em contacto em breve:</p>
+
+    <div class="message-box">
+        <pre style="white-space: pre-wrap;">{{ message }}</pre>
+    </div>
+
+    <a href="/" class="btn">Voltar ao início</a>
+</section>
+{% endblock %}

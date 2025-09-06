@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="quote-form">
+    <h2>Pedido de Orçamento</h2>
+    <form method="post" action="/orcamento">
+        <label for="username">Nome</label>
+        <input type="text" id="username" name="username" placeholder="Teu nome">
+
+        <label for="phone">Número de Telefone *</label>
+        <input type="text" id="phone" name="phone" placeholder="+351 9xx xxx xxx" required>
+
+        <label for="carro_info">Informação do carro *</label>
+        <textarea id="carro_info" name="carro_info" rows="5" placeholder="Ex: BMW 320d 2015, extras: pack M" required></textarea>
+
+        <label for="condition">Condição *</label>
+        <select id="condition" name="condition" required>
+            <option value="Novo">Novo</option>
+            <option value="Usado">Usado</option>
+        </select>
+
+        <label for="color">Cor</label>
+        <input type="text" id="color" name="color" placeholder="Ex: Preto, Branco, Azul">
+
+        <label for="cilindrada">Cilindrada</label>
+        <input type="text" id="cilindrada" name="cilindrada" placeholder="Ex: 2000cc">
+
+        <label for="ano">Ano</label>
+        <input type="text" id="ano" name="ano" placeholder="Ex: 2020">
+
+        <label for="combustivel">Combustível</label>
+        <input type="text" id="combustivel" name="combustivel" placeholder="Ex: Gasolina, Diesel, Híbrido">
+
+        <button type="submit" class="btn">Enviar pedido</button>
+    </form>
+</section>
+{% endblock %}

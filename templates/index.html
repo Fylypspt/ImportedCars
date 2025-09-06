@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <h1>Importa o teu carro para Portugal sem complicações</h1>
+      <p>Explicamos passo a passo os impostos, inspeções e matrículas. Calcula já um orçamento rápido.</p>
+      <a class="btn btn--light" href="/orcamento">Calcular Orçamento</a>
+    </div>
+  </div>
+</section>
+
+<section class="how-it-works" id="Ajuda">
+    <h2>Como funciona</h2>
+    <div class="steps">
+        <div class="step">
+            <img src="/static/images/step1.png" alt="Compra & Transporte">
+            <h3>Compra & Transporte</h3>
+            <p>Compra no estrangeiro, transporte organizado por nós.</p>
+        </div>
+        <div class="step">
+            <img src="/static/images/step2.png" alt="Impostos">
+            <h3>Impostos</h3>
+            <p>Pagamento de ISV/IVA e declaração nas autoridades competentes.</p>
+        </div>
+        <div class="step">
+            <img src="/static/images/step3.png" alt="Inspeção & Matrícula">
+            <h3>Inspeção & Matrícula</h3>
+            <p>Inspeção técnica, submissão do COC e pedido de matrícula portuguesa com acompanhamento completo.</p>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
