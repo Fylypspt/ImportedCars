@@ -3,7 +3,7 @@ from config import Config
 from models import db, User, Quote
 from datetime import datetime
 from dotenv import load_dotenv
-import os, requests
+import os, requests, re
 
 load_dotenv()
 
@@ -15,10 +15,35 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
+# -------------------------
+# Utilitários
+# -------------------------
+def sanitize_param_text(s, max_len=1024, sep=' | '):
+    """
+    - Substitui newlines/tabs por um separador (p.ex. ' | ').
+    - Colapsa espaços consecutivos.
+    - Remove leading/trailing spaces.
+    - Trunca para max_len (adiciona '...' se truncado).
+    """
+    if s is None:
+        return ""
+    s = str(s)
+    # substituir CR/LF/TAB por um separador legível (sem criar novas linhas)
+    s = re.sub(r'[\r\n\t]+', sep, s)
+    # colapsar espaços múltiplos
+    s = re.sub(r' {2,}', ' ', s)
+    # colapsar repetidos do separador (p.ex. " |  | ") para apenas um separador
+    # (escape separador para regex)
+    sep_esc = re.escape(sep.strip())
+    s = re.sub(r'(?:\s*' + sep_esc + r'\s*){2,}', sep.strip(), s)
+    s = s.strip()
+    # evitar mais de 4 espaços consecutivos (já colapsado, mas guarda como fallback)
+    s = re.sub(r' {4,}', ' ', s)
+    # truncar se necessário (mantendo espaço para "...")
+    if len(s) > max_len:
+        s = s[:max_len-3].rstrip() + "..."
+    return s
 
-# -------------------------
-# Funções utilitárias
-# -------------------------
 def parse_float(value, default=0.0):
     if value is None:
         return default
@@ -71,7 +96,7 @@ def orcamento():
                 user.username = username
                 db.session.commit()
 
-        # Cria a cotação
+        # Cria a cotação na BD
         quote = Quote(
             user_id=user.id,
             car_info=carro_info,
@@ -84,7 +109,7 @@ def orcamento():
         db.session.add(quote)
         db.session.commit()
 
-        # Monta detalhes para WhatsApp (num único parâmetro)
+        # Monta detalhes do carro NO MESMO formato que usavas, mas sem newlines
         detalhes = (
             f"Carro: {carro_info}\n"
             f"Condição: {condition or 'não especificada'}\n"
@@ -95,8 +120,12 @@ def orcamento():
             f"Contacto: {user.phone}"
         )
 
+        # Sanitiza: converte newlines/tabs em um separador, colapsa espaços e trunca
+        detalhes_sanitized = sanitize_param_text(detalhes, max_len=1000, sep=' | ')
+        cliente_param = sanitize_param_text(user.username or "Cliente", max_len=200, sep=' | ')
+
         # ======================
-        # ENVIO PARA WHATSAPP (TEMPLATE)
+        # ENVIO PARA WHATSAPP (usando o template original com 2 placeholders)
         # ======================
         token = os.environ.get("WHATSAPP_TOKEN")
         phone_id = os.environ.get("WHATSAPP_PHONE_ID")
@@ -111,29 +140,38 @@ def orcamento():
             "to": owner_phone,
             "type": "template",
             "template": {
-                "name": "info_update2",  # <-- nome do template que vais criar
+                "name": "info_update2",  # mantém o mesmo nome do teu template
                 "language": {"code": "pt_PT"},
                 "components": [
                     {
                         "type": "body",
                         "parameters": [
-                            {"type": "text", "text": user.username or "Cliente"},
-                            {"type": "text", "text": detalhes}
+                            {"type": "text", "text": cliente_param},      # {{1}}
+                            {"type": "text", "text": detalhes_sanitized}  # {{2}}
                         ]
                     }
                 ]
             }
         }
-        headers = {"Authorization": f"Bearer {token}"}
+        headers = {
+            "Authorization": f"Bearer {token}",
+            "Content-Type": "application/json"
+        }
 
         r = requests.post(url, json=payload, headers=headers)
-        print("Resposta WhatsApp:", r.json())
+        # Debugging melhorado
+        print("Status:", r.status_code)
+        try:
+            print("Resposta WhatsApp:", r.json())
+        except Exception:
+            print("Resposta text:", r.text)
 
-        print("=== Mensagem enviada via template ===")
-        print(detalhes)
+        print("=== Mensagem enviada via template (sanitizada) ===")
+        print("Cliente:", cliente_param)
+        print("Detalhes:", detalhes_sanitized)
         print("========================")
 
-        return render_template('sent.html', message=detalhes, year=datetime.now().year)
+        return render_template('sent.html', message=detalhes_sanitized, year=datetime.now().year)
 
     # GET request
     return render_template('quote.html', year=datetime.now().year)
