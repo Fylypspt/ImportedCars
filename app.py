@@ -127,14 +127,15 @@ def orcamento():
         # ======================
         # ENVIO PARA WHATSAPP (usando o template original com 2 placeholders)
         # ======================
-        token = os.environ.get("WHATSAPP_TOKEN")
-        phone_id = os.environ.get("WHATSAPP_PHONE_ID")
-        owner_phone = os.environ.get("OWNER_PHONE")
+        token = "EAAKyUIh7TLsBPd1dhs0uCCuO4Ey2TqtZCT5CKOIqZClY7NSkZCrQTSZA5pCEGfZBZCI0IQ8JX0XGLcRQZATluWL1gjJEoP5V7fSVd6U3OlUcia73eyNL05tA5NwH4OmEYV0xMaVKUTn34MpZBPfGH4muXY00dMTl4HPBr1k4Pz7G9LZAR9nKkIGdZABIDWZBO1fbpba90fJUha1Vk8ypYOviejN1nQOWICQcwbhN7KkkXBy" # os.environ.get("WHATSAPP_TOKEN")
+        phone_id = "698802006660937" # os.environ.get("WHATSAPP_PHONE_ID")
+        owner_phone = "351933545855" # os.environ.get("OWNER_PHONE")
 
         if not token or not phone_id or not owner_phone:
             raise ValueError("Credenciais WhatsApp não configuradas (WHATSAPP_TOKEN / WHATSAPP_PHONE_ID / OWNER_PHONE)")
 
         url = f"https://graph.facebook.com/v22.0/{phone_id}/messages"
+        print(">>> OWNER_PHONE do env:", owner_phone)
         payload = {
             "messaging_product": "whatsapp",
             "to": owner_phone,
